@@ -1,3 +1,9 @@
+/*
+
+CURRENTLY ALWAYS GENERATES 10 JOBS
+NEED TO DYNAMICALLY GENERATE JOBS WHILE CPU IDLES MORE THAN 2 'QUANTAS'.
+
+*/
 public class Generate{
 	Job[] jobs;
 	int jobcount;
@@ -9,7 +15,15 @@ public class Generate{
 		for(int i= 0; i<jobcount; i++){
 			myjobs[i] = new Job(i); // passes index to constructor for debuggi$
 		}
-		jobs = arrivalSort(myjobs); // sorting jobs by arrival time
+		jobs = arrivalSort(analyze(myjobs)); // sorting jobs by arrival time
+	}
+
+	public Job[] analyze(Job[] curjobs){
+		// needs to analyze the jobs to verify
+		// the issue listed at the top of this script
+		// return the current or increased number of jobs.
+
+		return curjobs;
 	}
 
 	public Job[] getJobs(){
@@ -34,6 +48,7 @@ public class Generate{
 		}
 		return array;
 	}
+
 }
 
 
