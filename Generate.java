@@ -4,7 +4,7 @@ public class Generate{
 
 	public Generate(){
 		jobcount = 10;
-		Job[] myjobs = new Job[10];     // generates array of 10 job objects
+		Job[] myjobs = new Job[jobcount];     // generates array of 10 job objects
 
 		for(int i= 0; i<jobcount; i++){
 			myjobs[i] = new Job(i); // passes index to constructor for debuggi$
