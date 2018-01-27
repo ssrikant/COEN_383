@@ -2,8 +2,11 @@ public class Main{
 
 
 	public static void main(String[] args){
-		Generate session = new Generate();	// generates 10 jobs and sorts by arrival time
-		Job[] jobs = session.getJobs();	// fetches the generated and sorted jobs
+		boolean verbose = false;
+		Generate session = new Generate(verbose);	// generates 10 jobs and sorts by arrival time
+		// setting Generation verbose parameter to true will show all print statements - feel free to do so if curious.
+
+		Job[] jobs = session.getJobs();	// fetches the generated jobs, already sorted by arrival time and no idle gaps larger than 2 sec.
 
 
 		// HOW TO USE THIS?
@@ -19,9 +22,7 @@ public class Main{
 		// sincerely, Andreas.
 
 
-		for(int i=0; i<jobs.length; i++){
-			jobs[i].printJob();	// prints to show what we have
-		}
+		session.showall();	// simply prints ALL jobs fetched by the getJobs() function.
 
 
 		// Develop a new class for each scheduling alg. We can execute each class from here
