@@ -1,10 +1,15 @@
 import java.util.Random;
 
 public class Job{
-	private int arrival_time;
+	private double arrival_time;
 	private double service_time;
 	private int priority;
 	private int index;
+	
+	private double completionTime;
+	private double turnaroundTime;
+	private double waitingTime;
+
 
 	public Job(int i){
 		Random rand = new Random();
@@ -19,7 +24,7 @@ public class Job{
 		index = i;
 	}
 
-	public int getArrival(){
+	public double getArrival(){
 		return arrival_time;
 	}
 
@@ -34,12 +39,40 @@ public class Job{
 	public int getIndex(){
 		return index;
 	}
+	
+	public double getCompletionTime() {
+		return completionTime;
+	}
+	
+	public void setCompletionTime(double completionTime) {
+		this.completionTime = completionTime;
+	}
+	
+	public double getTurnaroundTime() {
+		return turnaroundTime;
+	}
+	
+	public void setTurnaroundTime(double turnaroundTime) {
+		this.turnaroundTime = turnaroundTime;
+	}
+	
+	public void setWaitingTime(double waitingTime) {
+		this.waitingTime = waitingTime;
+	}
+	
+	public double getWaitingTime() {
+		return waitingTime;
+	}
 
 	public void printJob(){
-		System.out.println("Job #"+getIndex());
-		System.out.println("Arrival time: "+getArrival());
-		System.out.println("Service time: "+getService());
-		System.out.println("Priority: "+getPriority());
+		//System.out.println("Job #"+index);
+		//System.out.println("Priority: "+priority);
+		System.out.println("Arrival time: "+arrival_time);
+		System.out.println("Service time: "+service_time);
+		System.out.println("Completion time: " + completionTime);
+		System.out.println("Turnaround time: " + turnaroundTime);
+		System.out.println("Waiting time: " + waitingTime);
+		System.out.println("---------------------------------------------------");
 	}
 
 }

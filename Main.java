@@ -9,7 +9,7 @@ public class Main{
 		Generate session = new Generate(verbose);	// generates 10 randomized jobs and sorts by arrival time
 								// then dynamically adds jobs as needed to prevent idling for more than 2 sec/quantas/blocks.
 
-		session.showall();      // simply prints ALL jobs fetched by the getJobs() function.
+//		session.showall();      // simply prints ALL jobs fetched by the getJobs() function.
 		Job[] jobs = session.getJobs();	// fetches the generated jobs, already sorted by arrival time and no idle gaps larger than 2 sec.
 
 
@@ -29,6 +29,7 @@ public class Main{
 		//
 		// Develop a new class for each scheduling alg. We can execute each class from here with something like...
 		//
+
 		// Ex: FCFS sample = new FCFS(jobs, verbose);
 		//
 		// or whatever you're comfortable with :)
@@ -38,6 +39,19 @@ public class Main{
 		// Sincerely, Andreas
 
 
+
+		// sincerely, Andreas.
+
+
+//		for(int i=0; i<jobs.length; i++){
+//			jobs[i].printJob();	// prints to show what we have
+//		}
+
+
+		// Develop a new class for each scheduling alg. We can execute each class from here
+		FCFS fcfs = new FCFS();
+		fcfs.run(jobs);
+		
 	}
 
 }
