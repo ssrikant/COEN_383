@@ -4,7 +4,7 @@
 
 Shortest job first (SJF) - Trisha
 - Preemptive
-- <s>Non-preemptive
+- Non-preemptive
 
 Shortest remaining time (SRT) - 
 
