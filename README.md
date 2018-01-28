@@ -3,8 +3,8 @@
 - First-come first-served (FCFS) - Trisha
 
 - Shortest job first (SJF) - Trisha
-- - Preemptive
-- - Non-preemptive
+    - Preemptive
+    - Non-preemptive
 
 - Shortest remaining time (SRT) - 
 
