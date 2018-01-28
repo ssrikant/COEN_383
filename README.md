@@ -1,18 +1,20 @@
 # COEN_383
 
-First-come first-served (FCFS) - Trisha
+- First-come first-served (FCFS) - Trisha
 
-Shortest job first (SJF) - Trisha
+- Shortest job first (SJF) - Trisha
 
-Shortest remaining time (SRT) - 
+- Shortest remaining time (SRT) - 
 
-Round robin (RR) - Jana
+- Round robin (RR) - Jana
 
-Highest priority first (HPF) - 
+- Highest priority first (HPF) - 
+    - Preemptive
+    - Non-preemptive
+    
+- Job generator - Andreas
 
-Job generator - Andreas
+- Running each algorithm and recording output - 
 
-Running each algorithm and recording output - 
-
-Report - 
+- Report - 
 
