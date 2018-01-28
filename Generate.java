@@ -15,7 +15,7 @@ public class Generate{
 					// 	arrival times as necessary
 	}
 
-	public void addEarlierJob(double max){
+	public void addEarlierJob(int max){
 		Job newjob = new Job(jobcount);
 		while (newjob.getArrival() >= max){
 			newjob = new Job(jobcount);
@@ -23,7 +23,7 @@ public class Generate{
 		addJob(newjob);
 	}
 
-	public void addLaterJob(double min){
+	public void addLaterJob(int min){
 		Job newjob = new Job(jobcount);
 		while(newjob.getArrival() <= min){
 			newjob = new Job(jobcount);
@@ -45,7 +45,7 @@ public class Generate{
 	public void analyze(boolean verbose){
 		boolean redo = false;
 		double reqtime = 0;
-		double curArriv = 0.0;
+		int curArriv = 0;
 		for(int i=0; i<jobcount; i++){
 			curArriv = jobs[i].getArrival();
 			if(verbose){

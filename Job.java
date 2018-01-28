@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class Job{
-	private double arrival_time;
+	private int arrival_time;
 	private double service_time;
 	private int priority;
 	private int index;
@@ -24,7 +24,7 @@ public class Job{
 		index = i;
 	}
 
-	public double getArrival(){
+	public int getArrival(){
 		return arrival_time;
 	}
 
@@ -65,13 +65,13 @@ public class Job{
 	}
 
 	public void printJob(){
-		//System.out.println("Job #"+index);
-		//System.out.println("Priority: "+priority);
+		System.out.println("Job #"+index);
+//		System.out.println("Priority: "+priority);
 		System.out.println("Arrival time: "+arrival_time);
 		System.out.println("Service time: "+service_time);
-		System.out.println("Completion time: " + completionTime);
-		System.out.println("Turnaround time: " + turnaroundTime);
-		System.out.println("Waiting time: " + waitingTime);
+		System.out.printf("Completion time: %.1f %n", completionTime);
+		System.out.printf("Turnaround time:  %.1f %n", turnaroundTime);
+		System.out.printf("Waiting time:  %.1f %n", waitingTime);
 		System.out.println("---------------------------------------------------");
 	}
 

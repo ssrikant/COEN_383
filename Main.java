@@ -52,6 +52,9 @@ public class Main{
 		FCFS fcfs = new FCFS();
 		fcfs.run(jobs);
 		
+		SJFNP sjf = new SJFNP();
+		sjf.run(jobs);
+		
 	}
 
 }

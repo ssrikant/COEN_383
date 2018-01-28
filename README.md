@@ -2,7 +2,7 @@
 
 First-come first-served (FCFS) - Trisha
 
-Shortest job first (SJF) - 
+Shortest job first (SJF) - Trisha
 
 Shortest remaining time (SRT) - 
 
