@@ -9,6 +9,7 @@ public class Job{
 	private double completionTime;
 	private double turnaroundTime;
 	private double waitingTime;
+	private double responseTime;
 
 
 	public Job(int i){
@@ -63,17 +64,28 @@ public class Job{
 	public double getWaitingTime() {
 		return waitingTime;
 	}
+	
+	public double getResponseTime() {
+		return responseTime;
+	}
+
+	public void setResponseTime(double responseTime) {
+		this.responseTime = responseTime;
+	}
 
 	public void printJob(){
 		System.out.println("Job #"+index);
-//		System.out.println("Priority: "+priority);
+		System.out.println("Priority: "+priority);
 		System.out.println("Arrival time: "+arrival_time);
 		System.out.println("Service time: "+service_time);
 		System.out.printf("Completion time: %.1f %n", completionTime);
 		System.out.printf("Turnaround time:  %.1f %n", turnaroundTime);
 		System.out.printf("Waiting time:  %.1f %n", waitingTime);
+		System.out.printf("Response time:  %.1f %n", responseTime);
 		System.out.println("---------------------------------------------------");
 	}
+
+
 
 }
 

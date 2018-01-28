@@ -11,6 +11,7 @@ public class SJFNP {
 		
 		double totalWT = 0.0;
 		double totalTAT = 0.0;
+		double totalRT = 0.0;
 		
 		// compute metrics
 		for (int i = 0; i < jobs.length; i++) {
@@ -20,25 +21,30 @@ public class SJFNP {
 			if (i == 0 || (currJob.getArrival() > jobs[i-1].getCompletionTime())) {
 				currJob.setCompletionTime(currJob.getArrival() + currJob.getService());
 				currJob.setWaitingTime(0.0);
+				currJob.setResponseTime(0.0);
 			} else {
 				currJob.setCompletionTime(jobs[i-1].getCompletionTime() + currJob.getService());
 				currJob.setWaitingTime(jobs[i-1].getCompletionTime() - currJob.getArrival());
+				currJob.setResponseTime(jobs[i-1].getCompletionTime() - currJob.getArrival());
 			}
+			
 			
 			currJob.setTurnaroundTime(currJob.getWaitingTime() + currJob.getService());
 			
 			totalWT += currJob.getWaitingTime();
 			totalTAT += currJob.getTurnaroundTime();
+			totalRT += currJob.getResponseTime();
 			
 			currJob.printJob();
 			
 		}
 		
 		System.out.println("===================================================");
-		System.out.println("SJF");
+		System.out.println("SJF NP");
 		System.out.println("===================================================");
 		System.out.println("Average waiting time: " + (totalWT/jobs.length));
 		System.out.println("Average turnaround time: " + (totalTAT/jobs.length));
+		System.out.println("Average response time: " + (totalRT/jobs.length));
 		
 	}
 	
@@ -47,7 +53,7 @@ public class SJFNP {
 	 * @param jobs
 	 * @return jobs
 	 */
-	public Job[] sjfnpSort(Job[] jobs){
+	public Job[] sjfnpSort(Job[] jobs) {
 		
 		Job tempJob = null;
         double refTime = 0.0; // reference time for sorting by service time

@@ -55,6 +55,9 @@ public class Main{
 		SJFNP sjf = new SJFNP();
 		sjf.run(jobs);
 		
+		HPFNP hpf = new HPFNP();
+		hpf.run(jobs);
+		
 	}
 
 }
