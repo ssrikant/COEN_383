@@ -12,6 +12,9 @@ public class RoundRobin {
 
     public void run(Job[] jobs) {
 
+        System.out.println("===================================================");
+        System.out.println("Round Robin");
+        System.out.println("===================================================");
 
         //Iterate through jobs while there is more work to do
         while(true){
@@ -43,10 +46,11 @@ public class RoundRobin {
                     //If this job still has work to do, process the job
                     if(readyQueue.get(j).getRemainingServiceTime() > 0) {
 
-                        done = false;
 
+                        done = false;
                         //If this job needs more than one time slice to complete...
                         if(readyQueue.get(j).getRemainingServiceTime() > quantum){
+
 
                             //If this is the first run, record response time
                             if(readyQueue.get(j).getRemainingServiceTime() == readyQueue.get(j).getService()){
@@ -75,8 +79,8 @@ public class RoundRobin {
 
                         }
 
+                        time += quantum;
                     }
-                    time += quantum;
                 }
             }
 
@@ -90,7 +94,7 @@ public class RoundRobin {
             jobs[i].printJob();
         }
 
-        System.out.println("===================================================");
+
         System.out.println("Average waiting time: " + (totalWaitingTime/jobs.length));
         System.out.println("Average turnaround time: " + (totalTurnAroundTime/jobs.length));
         System.out.println("Average response time: " + (totalResponseTime/jobs.length));
