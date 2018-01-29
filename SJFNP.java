@@ -3,8 +3,18 @@
  *
  */
 public class SJFNP {
-	
-	public void run(Job[] jobs) {
+	private double avgwait;
+	private double avgresponse;
+	private double avgturnaround;
+
+	public SJFNP(Job[] jobs, boolean verbose){
+		avgwait = 0;
+		avgresponse = 0;
+		avgturnaround = 0;
+		run(jobs, verbose);
+	}
+
+	private void run(Job[] jobs, boolean verbose) {
 		
 		// order jobs from shortest to longest to finish
 		jobs = sjfnpSort(jobs);
@@ -27,37 +37,54 @@ public class SJFNP {
 				currJob.setWaitingTime(jobs[i-1].getCompletionTime() - currJob.getArrival());
 				currJob.setResponseTime(jobs[i-1].getCompletionTime() - currJob.getArrival());
 			}
-			
-			
+
+
 			currJob.setTurnaroundTime(currJob.getWaitingTime() + currJob.getService());
-			
+
 			totalWT += currJob.getWaitingTime();
 			totalTAT += currJob.getTurnaroundTime();
 			totalRT += currJob.getResponseTime();
-			
-			currJob.printJob();
-			
+			if(verbose){
+				currJob.printJob();
+			}
 		}
-		
+
+		avgwait = totalWT/jobs.length;
+		avgresponse = totalRT/jobs.length;
+		avgturnaround = totalTAT/jobs.length;
+
 		System.out.println("===================================================");
 		System.out.println("SJF NP");
 		System.out.println("===================================================");
-		System.out.println("Average waiting time: " + (totalWT/jobs.length));
-		System.out.println("Average turnaround time: " + (totalTAT/jobs.length));
-		System.out.println("Average response time: " + (totalRT/jobs.length));
-		
+		System.out.println("Average waiting time: " + avgwait);
+		System.out.println("Average turnaround time: " + avgturnaround);
+		System.out.println("Average response time: " + avgresponse);
+
 	}
-	
+
+        public double getavgwait(){
+                return avgwait;
+        }
+
+        public double getavgturnaround(){
+                return avgturnaround;
+        }
+
+        public double getavgresponse(){
+                return avgresponse;
+        }
+
+
 	/**
 	 * Sort job array so that the job with the shortest service time among those that have arrived/are available will be executed first
 	 * @param jobs
 	 * @return jobs
 	 */
 	public Job[] sjfnpSort(Job[] jobs) {
-		
+
 		Job tempJob = null;
         double refTime = 0.0; // reference time for sorting by service time
-        
+
         for (int i = 0; i < jobs.length; i++) {
             if (jobs[i].getArrival() > refTime) {
             		refTime = jobs[i].getArrival();

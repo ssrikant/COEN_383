@@ -43,24 +43,32 @@ public class Main{
 		// sincerely, Andreas.
 
 
-//		for(int i=0; i<jobs.length; i++){
-//			jobs[i].printJob();	// prints to show what we have
-//		}
-
+		double fcfswait, fcfsresponse, fcfsturnaround;
+		double sjfwait, sjfresponse, sjfturnaround;
+		double hpfwait, hpfresponse, hpfturnaround;
+		double rrwait, rrresponse, rrturnaround;
 
 		// Develop a new class for each scheduling alg. We can execute each class from here
-		FCFS fcfs = new FCFS();
-		fcfs.run(jobs);
+		FCFS fcfs = new FCFS(jobs, verbose);
+		fcfswait = fcfs.getavgwait();
+		fcfsresponse = fcfs.getavgresponse();
+		fcfsturnaround = fcfs.getavgturnaround();
 
-		SJFNP sjf = new SJFNP();
-		sjf.run(jobs);
+		SJFNP sjf = new SJFNP(jobs, verbose);
+		sjfwait = sjf.getavgwait();
+		sjfturnaround = sjf.getavgturnaround();
+		sjfresponse = sjf.getavgresponse();
 
-		HPFNP hpf = new HPFNP();
-		hpf.run(jobs);
+		HPFNP hpf = new HPFNP(jobs, verbose);
+		hpfwait = hpf.getavgwait();
+		hpfresponse = hpf.getavgresponse();
+		hpfturnaround = hpf.getavgturnaround();
 
-		RoundRobin roundRobin = new RoundRobin();
-		roundRobin.run(jobs);
-		
+		RoundRobin roundRobin = new RoundRobin(jobs, verbose);
+		rrwait = roundRobin.getavgwait();
+		rrturnaround = roundRobin.getavgturnaround();
+		rrresponse = roundRobin.getavgresponse();
+
 	}
 
 }

@@ -3,14 +3,32 @@ import java.util.List;
 
 public class RoundRobin {
 
-    private int time = 0;
-    private static int quantum = 1;
-    private List<Job> readyQueue = new ArrayList<Job>();
-    private double totalWaitingTime = 0.0;
-    private double totalTurnAroundTime = 0.0;
-    private double totalResponseTime = 0.0;
+    private int time;
+    private static int quantum;
+    private List<Job> readyQueue;
+    private double totalWaitingTime;
+    private double totalTurnAroundTime;
+    private double totalResponseTime;
 
-    public void run(Job[] jobs) {
+    private double avgwait;
+    private double avgturnaround;
+    private double avgresponse;
+
+    public RoundRobin(Job[] jobs, boolean verbose){
+        time = 0;
+        quantum = 1;
+        readyQueue = new ArrayList<Job>();
+        totalWaitingTime = 0.0;
+        totalTurnAroundTime = 0.0;
+	totalResponseTime = 0.0;
+
+        avgwait = 0;
+        avgresponse = 0;
+        avgturnaround = 0;
+        run(jobs, verbose);
+    }
+
+    private void run(Job[] jobs, boolean verbose) {
 
         System.out.println("===================================================");
         System.out.println("Round Robin");
@@ -89,14 +107,31 @@ public class RoundRobin {
                 break;
             }
         }
-
-        for(int i = 0; i < jobs.length; i++){
-            jobs[i].printJob();
+        if(verbose){
+            for(int i = 0; i < jobs.length; i++){
+                jobs[i].printJob();
+            }
         }
 
+        avgwait = totalWaitingTime/jobs.length;
+        avgturnaround = totalTurnAroundTime/jobs.length;
+        avgresponse = totalResponseTime/jobs.length;
 
-        System.out.println("Average waiting time: " + (totalWaitingTime/jobs.length));
-        System.out.println("Average turnaround time: " + (totalTurnAroundTime/jobs.length));
-        System.out.println("Average response time: " + (totalResponseTime/jobs.length));
+        System.out.println("Average waiting time: " + avgwait);
+        System.out.println("Average turnaround time: " + avgturnaround);
+        System.out.println("Average response time: " + avgresponse);
     }
+
+    public double getavgwait(){
+        return avgwait;
+    }
+
+    public double getavgturnaround(){
+        return avgturnaround;
+    }
+
+    public double getavgresponse(){
+        return avgresponse;
+    }
+
 }
