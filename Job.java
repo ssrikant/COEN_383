@@ -12,7 +12,7 @@ public class Job{
 	private double responseTime;
 	private double remainingServiceTime;
 
-
+	private int idleTime;
 
 	public Job(int i){
 		Random rand = new Random();
@@ -26,6 +26,7 @@ public class Job{
 		priority = rand.nextInt(4)+1; // 1-4
 		remainingServiceTime = service_time;
 		index = i;
+		idleTime = 0;
 	}
 
 	public int getArrival(){
@@ -38,6 +39,9 @@ public class Job{
 
 	public int  getPriority(){
 		return priority;
+	}
+	public void  setPriority(int priority){
+		this.priority = priority;
 	}
 
 	public int getIndex(){
@@ -83,6 +87,14 @@ public class Job{
 	public void setResponseTime(double responseTime) {
 		this.responseTime = responseTime;
 	}
+	
+	public int getIdleTime() {
+		return idleTime;
+	}
+
+	public void setIdleTime(int idleTime) {
+		this.idleTime = idleTime;
+	}
 
 	public void printJob(){
 		System.out.println("Job #"+index);
@@ -95,6 +107,8 @@ public class Job{
 		System.out.printf("Response time:  %.1f %n", responseTime);
 		System.out.println("---------------------------------------------------");
 	}
+
+
 
 
 
