@@ -13,6 +13,7 @@ public class Generate{
 		analyze(verbose);	// Analyzes the jobs to ensure no idletime greater than 2quantas/blocks/sec is allowed.
 					// If such idle times are detected, additional jobs are created with earlier/later 
 					// 	arrival times as necessary
+		System.out.println(jobcount + " jobs generated for processing.");
 	}
 
 	public void addEarlierJob(int max){

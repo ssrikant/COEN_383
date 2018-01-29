@@ -13,7 +13,6 @@ public class Main{
 		Job[] jobs = session.getJobs();	// fetches the generated jobs, already sorted by arrival time and no idle gaps larger than 2 sec.
 
 
-
 		//useful getfunctions to manipulate the provided jobs
 
 		//	(int) jobs.getArrival(), (double) jobs.getService(), and (int) jobs.getPriority()
