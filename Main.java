@@ -51,12 +51,15 @@ public class Main{
 		// Develop a new class for each scheduling alg. We can execute each class from here
 		FCFS fcfs = new FCFS();
 		fcfs.run(jobs);
-		
+
 		SJFNP sjf = new SJFNP();
 		sjf.run(jobs);
-		
+
 		HPFNP hpf = new HPFNP();
 		hpf.run(jobs);
+
+		RoundRobin roundRobin = new RoundRobin();
+		roundRobin.run(jobs);
 		
 	}
 

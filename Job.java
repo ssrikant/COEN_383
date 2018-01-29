@@ -10,6 +10,8 @@ public class Job{
 	private double turnaroundTime;
 	private double waitingTime;
 	private double responseTime;
+	private double remainingServiceTime;
+
 
 
 	public Job(int i){
@@ -22,6 +24,7 @@ public class Job{
 			service_time = service;
 		}
 		priority = rand.nextInt(4)+1; // 1-4
+		remainingServiceTime = service_time;
 		index = i;
 	}
 
@@ -39,6 +42,14 @@ public class Job{
 
 	public int getIndex(){
 		return index;
+	}
+
+	public double getRemainingServiceTime() {
+		return this.remainingServiceTime;
+	}
+
+	public void setRemainingServiceTime(double remainingServiceTime) {
+		this.remainingServiceTime = remainingServiceTime;
 	}
 	
 	public double getCompletionTime() {
