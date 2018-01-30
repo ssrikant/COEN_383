@@ -3,10 +3,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * Non-Preemptive Highest Priority First Scheduling Algorithm (Without Aging)
+ * Non-Preemptive Highest Priority First Scheduling Algorithm (With Aging)
  *
  */
-public class HPFNP {
+public class HPFNPWithAging {
 
 	private Queue<Job> queue;
 	
@@ -35,7 +35,7 @@ public class HPFNP {
 	private double throughput_p3;
 	private double throughput_p4;
 	
-	public HPFNP(Job[] jobs, boolean verbose) {
+	public HPFNPWithAging(Job[] jobs, boolean verbose) {
 
 		avgwait = 0;
 		avgturnaround = 0;
@@ -84,17 +84,17 @@ public class HPFNP {
 		int processedJobsCount_p4 = 0;
 		
 		// compute metrics
-		int startingQueueSize = queue.size();
+		int queueSize = queue.size();
 		Job prevJob = null;
 		while (!queue.isEmpty()) {
 
+			Job currJob = queue.peek();
+
 			// no process should get the CPU for the first time after time quantum 99
 			if (timeQuantum <= 99.0) {
-				
-				Job currJob = queue.peek();
 	
 				// if first job to be processed or there is some idle time
-				if (startingQueueSize == queue.size() || (currJob.getArrival() > prevJob.getCompletionTime())) {
+				if (queueSize == queue.size() || (currJob.getArrival() > prevJob.getCompletionTime())) {
 					currJob.setCompletionTime(currJob.getArrival() + currJob.getService());
 					currJob.setWaitingTime(0.0);
 					currJob.setResponseTime(0.0);
@@ -154,10 +154,37 @@ public class HPFNP {
 
 			queue.remove();
 
+			boolean priorityChange = false;
+			Queue<Job> remainingJobsQueue = new LinkedList<Job>(queue);
+			// for each job yet to be completed
+			while(!remainingJobsQueue.isEmpty()) {
+				// that has already arrived
+				Job nextJob = remainingJobsQueue.peek();
+				if (nextJob.getArrival() < currJob.getCompletionTime()) {
+					// check its waiting time
+					nextJob.setIdleTime(nextJob.getIdleTime() + ((int) currJob.getCompletionTime() - nextJob.getArrival()));
+					// if has waited by at least 5 quanta and priority > 1
+					if ((nextJob.getIdleTime() % 5 == 0) && nextJob.getPriority() > 1) {
+						// bump up priority
+						if (verbose) { System.out.println("Bumping up priority level of Job #" + Integer.toString(nextJob.getIndex())); }
+						nextJob.setPriority(nextJob.getPriority() - 1); // bump up priority
+						nextJob.setIdleTime(0); // reset idle time at this new priority
+						priorityChange = true;
+					}
+				}
+				remainingJobsQueue.remove();				
+			}
+
+			// update order of jobs if a priority change happened
+			if (priorityChange) {
+				Job[] remainingJobs = new Job[queue.size()];
+				queue = new LinkedList<Job>(Arrays.asList(prioritySort(queue.toArray(remainingJobs))));
+			}
+
 		}
 
 		// System.out.println("Total # of jobs completed: " + processedJobCount);
-		// System.out.println("Total # of jobs that got CPU for the first time after time quantum 99: " + (startingQueueSize - processedJobCount));
+		// System.out.println("Total # of jobs that got CPU for the first time after time quantum 99: " + (queueSize - processedJobCount));
 
 		avgwait = totalWT / processedJobsCount;
 		avgturnaround = totalTAT / processedJobsCount;
@@ -185,7 +212,7 @@ public class HPFNP {
 		throughput_p4 = processedJobsCount_p4 / timeQuantum_p4;
 
 		System.out.println("===================================================");
-		System.out.println("HPF NP");
+		System.out.println("HPF NP With Aging");
 		System.out.println("===================================================");
 		System.out.println("---------------------------------------------------");
 		System.out.println("Priority 1");

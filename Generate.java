@@ -14,6 +14,7 @@ public class Generate{
 					// If such idle times are detected, additional jobs are created with earlier/later 
 					// 	arrival times as necessary
 		System.out.println(jobcount + " jobs generated for processing.");
+		System.out.println();
 	}
 
 	public void addEarlierJob(int max){

@@ -36,6 +36,7 @@ public class Main{
 		FCFS fcfs;
 		SJFNP sjf;
 		HPFNP hpf;
+		HPFNPWithAging hpfwa;
 		RoundRobin roundRobin;
 
 
@@ -45,7 +46,7 @@ public class Main{
                 double sjfwait=0, sjfresponse=0, sjfturnaround=0;
                 double hpfwait=0, hpfresponse=0, hpfturnaround=0;
                 double rrwait=0, rrresponse=0, rrturnaround=0;
-
+                double hpfwawait=0, hpfwaresponse=0, hpfwaturnaround=0;
 
 		showsettings();
 
@@ -53,7 +54,7 @@ public class Main{
 			session = new Generate(verbose);	// generates 10 randomized jobs and sorts by arrival time
 								// then dynamically adds jobs as needed to prevent idling for more than 2 sec/quantas/blocks.
 
-	//		session.showall();      // simply prints ALL jobs fetched by the getJobs() function.
+			//session.showall();      // simply prints ALL jobs fetched by the getJobs() function.
 			jobs = session.getJobs();	// fetches the generated jobs, already sorted by arrival time and no idle gaps larger than 2 sec.
 
 			// Runs each scheduling algorithm with the generated jobs and collects data
@@ -76,6 +77,12 @@ public class Main{
 			rrwait += roundRobin.getavgwait();
 			rrturnaround += roundRobin.getavgturnaround();
 			rrresponse += roundRobin.getavgresponse();
+
+			hpfwa = new HPFNPWithAging(jobs, verbose);
+			hpfwawait += hpfwa.getavgwait();
+			hpfwaresponse += hpfwa.getavgresponse();
+			hpfwaturnaround += hpfwa.getavgturnaround();
+
 		}
 
 		// Final result calculations
@@ -91,6 +98,10 @@ public class Main{
 		hpfresponse=hpfresponse/tests;
 		hpfturnaround=hpfturnaround/tests;
 
+		hpfwawait=hpfwawait/tests;
+		hpfwaresponse=hpfwaresponse/tests;
+		hpfwaturnaround=hpfwaturnaround/tests;
+
 		rrwait=rrwait/tests;
 		rrresponse=rrresponse/tests;
 		rrturnaround=rrturnaround/tests;
@@ -104,6 +115,7 @@ public class Main{
 		System.out.println("SJF wait/response/turnaround:\t" + sjfwait +" / "+ sjfresponse +" / "+ sjfturnaround);
 		System.out.println("HPF wait/response/turnaround:\t" + hpfwait +" / "+ hpfresponse +" / "+ hpfturnaround);
 		System.out.println("RR wait/response/turnaround:\t" + rrwait +" / "+ rrresponse +" / "+ rrturnaround);
+		System.out.println("HPFWithAging wait/response/turnaround:\t" + hpfwawait +" / "+ hpfwaresponse +" / "+ hpfwaturnaround);
 
 //		System.out.println(" wait/response/turnaround:\t" + wait +"/"+ response +"/"+ turnaround);
 

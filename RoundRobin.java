@@ -117,9 +117,9 @@ public class RoundRobin {
         avgturnaround = totalTurnAroundTime/jobs.length;
         avgresponse = totalResponseTime/jobs.length;
 
-        System.out.println("Average waiting time: " + avgwait);
-        System.out.println("Average turnaround time: " + avgturnaround);
-        System.out.println("Average response time: " + avgresponse);
+        System.out.println("Average waiting time:     " + avgwait);
+        System.out.println("Average turnaround time:  " + avgturnaround);
+        System.out.println("Average response time:    " + avgresponse);
     }
 
     public double getavgwait(){
