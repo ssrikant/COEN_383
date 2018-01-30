@@ -36,7 +36,7 @@ public class FCFS {
 		double timeQuantum = 0.0;
 		int processedJobsCount = 0; // keep track of the number of jobs processed between time quanta 0-99
 
-		int queueSize = queue.size();
+		int startingQueueSize = queue.size();
 		Job prevJob = null;
 
 		while (!queue.isEmpty()) {
@@ -44,7 +44,7 @@ public class FCFS {
 			if (timeQuantum <= 99.0) {
 				Job currJob = queue.peek();
 
-				if (queueSize == queue.size() || (currJob.getArrival() > prevJob.getCompletionTime())) {
+				if (startingQueueSize == queue.size() || (currJob.getArrival() > prevJob.getCompletionTime())) {
 					currJob.setCompletionTime(currJob.getArrival() + currJob.getService());
 					currJob.setWaitingTime(0.0);
 					currJob.setResponseTime(0.0);
@@ -75,6 +75,7 @@ public class FCFS {
 				}
 
 			}
+			
 			queue.remove();
 		}
 
