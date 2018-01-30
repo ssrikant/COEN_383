@@ -53,7 +53,7 @@ public class Main{
 			session = new Generate(verbose);	// generates 10 randomized jobs and sorts by arrival time
 								// then dynamically adds jobs as needed to prevent idling for more than 2 sec/quantas/blocks.
 
-	//		session.showall();      // simply prints ALL jobs fetched by the getJobs() function.
+			//session.showall();      // simply prints ALL jobs fetched by the getJobs() function.
 			jobs = session.getJobs();	// fetches the generated jobs, already sorted by arrival time and no idle gaps larger than 2 sec.
 
 			// Runs each scheduling algorithm with the generated jobs and collects data
@@ -67,7 +67,7 @@ public class Main{
 			sjfturnaround += sjf.getavgturnaround();
 			sjfresponse += sjf.getavgresponse();
 
-			hpf = new HPFNP(jobs, verbose);
+			hpf = new HPFNP(jobs, true);
 			hpfwait += hpf.getavgwait();
 			hpfresponse += hpf.getavgresponse();
 			hpfturnaround += hpf.getavgturnaround();
