@@ -67,7 +67,7 @@ public class Main{
 			sjfturnaround += sjf.getavgturnaround();
 			sjfresponse += sjf.getavgresponse();
 
-			hpf = new HPFNP(jobs, true);
+			hpf = new HPFNP(jobs, verbose);
 			hpfwait += hpf.getavgwait();
 			hpfresponse += hpf.getavgresponse();
 			hpfturnaround += hpf.getavgturnaround();
