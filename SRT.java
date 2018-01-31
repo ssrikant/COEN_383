@@ -18,7 +18,7 @@ public class SRT {
 		avgresponse = 0;
 		throughput = 0;
 		servicedJobs = 0;
-		System.out.println("============================================\nStarting SRT:\n");
+		System.out.println("============================================\nStarting SRT:\n================================================");
 		run(jobs, verbose);
 	}
 
@@ -48,13 +48,16 @@ public class SRT {
 
 		// initialize the work done on each job to 0
 		for (int i=0;i<work.length; i++){
+			alljobs[i].printJob();
 			work[i] = 0;
 		}
+
 		int time;
 		for(time = 0; time<100; time++){
 			//adds new arrived jobs and sorts instantly on arrival
 			if(jobindex < alljobs.length  && alljobs[jobindex].getArrival() <= time ){
 				System.out.println("Job #" + alljobs[jobindex].getIndex() +" Arrived.");
+				//alljobs[jobindex].printJob();
 				curjobs = srtsort(addjob(curjobs, alljobs[jobindex]), work);
 				jobindex++;
 			}
@@ -83,11 +86,14 @@ public class SRT {
 				System.out.println("Quant: "+time+"\t|\t IDLE#"+IDLE);
 			}
 		}
+
+		System.out.println("REMAINING JOBS: "+ curjobs.length);
+
 		// finish up pre-started jobs
 		while(curjobs.length > 0){
 			int curwork = work[curjobs[0].getIndex()];
 			if(curwork > 0){
-				double remainingTime = curwork - curjobs[0].getService();
+				double remainingTime = curjobs[0].getService() - curwork;
 				for(int j=0; j<remainingTime; j++){
 					System.out.println("Quant: "+time+"\t|\t#"+curjobs[0].getIndex());
 					time++;
@@ -101,17 +107,17 @@ public class SRT {
 			}
 		}
 
-		System.out.println(avgwait);
-		System.out.println(avgresponse);
-		System.out.println(avgturnaround);
-		System.out.println(throughput);
+//		System.out.println(avgwait);
+//		System.out.println(avgresponse);
+//		System.out.println(avgturnaround);
+//		System.out.println(throughput);
 
 		//finish statistics calculations
 		avgwait = (completiontimes - avgresponse)/servicedJobs;	// completion times - response times over the number of jobs
 		avgresponse = avgresponse / servicedJobs;	// avgresponse isnt avg until here
 		avgturnaround = avgturnaround / servicedJobs;
 		throughput = servicedJobs/time;
-
+		System.out.println("================================END OF SRT======================================");
 	}
 
 	public int findJob(Job[] jobs, int index){
