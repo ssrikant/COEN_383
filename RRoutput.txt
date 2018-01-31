@@ -1,0 +1,326 @@
+===================================================
+Round Robin
+===================================================
+Timeline
+---------------------------------------------------
+QUANTUM: 000   17
+QUANTUM: 001   17
+QUANTUM: 002   12
+QUANTUM: 003   17
+QUANTUM: 004   12
+QUANTUM: 005   15
+QUANTUM: 006   17
+QUANTUM: 007   15
+QUANTUM: 008   18
+QUANTUM: 009   12
+QUANTUM: 010   15
+QUANTUM: 011   18
+QUANTUM: 012   20
+QUANTUM: 013   12
+QUANTUM: 014   15
+QUANTUM: 015   18
+QUANTUM: 016   20
+QUANTUM: 017   22
+QUANTUM: 018   12
+QUANTUM: 019   15
+QUANTUM: 020   18
+QUANTUM: 021   20
+QUANTUM: 022   11
+QUANTUM: 023   12
+QUANTUM: 024   15
+QUANTUM: 025   18
+QUANTUM: 026   22
+QUANTUM: 027   11
+QUANTUM: 028   13
+QUANTUM: 029   12
+QUANTUM: 030   15
+QUANTUM: 031   22
+QUANTUM: 032   11
+QUANTUM: 033   13
+QUANTUM: 034   10
+QUANTUM: 035   12
+QUANTUM: 036   22
+QUANTUM: 037   11
+QUANTUM: 038   10
+QUANTUM: 039   4
+QUANTUM: 040   18
+QUANTUM: 041   22
+QUANTUM: 042   10
+QUANTUM: 043   4
+QUANTUM: 044   3
+QUANTUM: 045   18
+QUANTUM: 046   13
+QUANTUM: 047   10
+QUANTUM: 048   4
+QUANTUM: 049   3
+QUANTUM: 050   18
+QUANTUM: 051   13
+QUANTUM: 052   4
+QUANTUM: 053   14
+QUANTUM: 054   2
+QUANTUM: 055   18
+QUANTUM: 056   4
+QUANTUM: 057   14
+QUANTUM: 058   2
+QUANTUM: 059   5
+QUANTUM: 060   10
+QUANTUM: 061   4
+QUANTUM: 062   14
+QUANTUM: 063   2
+QUANTUM: 064   5
+QUANTUM: 065   10
+QUANTUM: 066   14
+QUANTUM: 067   2
+QUANTUM: 068   9
+QUANTUM: 069   4
+QUANTUM: 070   14
+QUANTUM: 071   21
+QUANTUM: 072   4
+QUANTUM: 073   2
+QUANTUM: 074   16
+QUANTUM: 075   4
+QUANTUM: 076   2
+QUANTUM: 077   19
+QUANTUM: 078   1
+QUANTUM: 079   4
+QUANTUM: 080   19
+QUANTUM: 081   1
+QUANTUM: 082   2
+QUANTUM: 083   19
+QUANTUM: 084   7
+QUANTUM: 085   2
+QUANTUM: 086   19
+QUANTUM: 087   8
+QUANTUM: 088   2
+QUANTUM: 089   8
+QUANTUM: 090   6
+QUANTUM: 091   8
+QUANTUM: 092   8
+QUANTUM: 093   0
+QUANTUM: 094   8
+QUANTUM: 095   0
+QUANTUM: 096   8
+QUANTUM: 097   0
+QUANTUM: 098   0
+QUANTUM: 099   0
+QUANTUM: 100   0
+QUANTUM: 101   0
+QUANTUM: 102   0
+QUANTUM: 103   0
+QUANTUM: 104   0
+---------------------------------------------------
+Jobs
+---------------------------------------------------
+Job #17
+Priority: 2
+Arrival time: 0
+Service time: 4.0
+Completion time: 7.0 
+Turnaround time:  7.0 
+Waiting time:  3.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #12
+Priority: 2
+Arrival time: 1
+Service time: 8.0
+Completion time: 36.0 
+Turnaround time:  35.0 
+Waiting time:  27.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #15
+Priority: 1
+Arrival time: 1
+Service time: 7.0
+Completion time: 31.0 
+Turnaround time:  30.0 
+Waiting time:  23.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #18
+Priority: 1
+Arrival time: 1
+Service time: 9.0
+Completion time: 56.0 
+Turnaround time:  55.0 
+Waiting time:  46.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #20
+Priority: 2
+Arrival time: 3
+Service time: 3.0
+Completion time: 22.0 
+Turnaround time:  19.0 
+Waiting time:  16.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #22
+Priority: 2
+Arrival time: 4
+Service time: 5.0
+Completion time: 42.0 
+Turnaround time:  38.0 
+Waiting time:  33.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #11
+Priority: 1
+Arrival time: 6
+Service time: 4.0
+Completion time: 38.0 
+Turnaround time:  32.0 
+Waiting time:  28.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #13
+Priority: 4
+Arrival time: 6
+Service time: 4.0
+Completion time: 52.0 
+Turnaround time:  46.0 
+Waiting time:  42.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #10
+Priority: 1
+Arrival time: 15
+Service time: 6.0
+Completion time: 66.0 
+Turnaround time:  51.0 
+Waiting time:  45.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #4
+Priority: 3
+Arrival time: 17
+Service time: 10.0
+Completion time: 80.0 
+Turnaround time:  63.0 
+Waiting time:  53.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #3
+Priority: 1
+Arrival time: 22
+Service time: 2.0
+Completion time: 50.0 
+Turnaround time:  28.0 
+Waiting time:  26.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #14
+Priority: 4
+Arrival time: 33
+Service time: 5.0
+Completion time: 71.0 
+Turnaround time:  38.0 
+Waiting time:  33.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #2
+Priority: 4
+Arrival time: 45
+Service time: 9.0
+Completion time: 89.0 
+Turnaround time:  44.0 
+Waiting time:  35.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #5
+Priority: 2
+Arrival time: 46
+Service time: 2.0
+Completion time: 65.0 
+Turnaround time:  19.0 
+Waiting time:  17.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #9
+Priority: 1
+Arrival time: 46
+Service time: 0.1
+Completion time: 68.1 
+Turnaround time:  22.1 
+Waiting time:  22.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #21
+Priority: 2
+Arrival time: 53
+Service time: 0.1
+Completion time: 71.1 
+Turnaround time:  18.1 
+Waiting time:  18.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #16
+Priority: 2
+Arrival time: 60
+Service time: 0.1
+Completion time: 74.1 
+Turnaround time:  14.1 
+Waiting time:  14.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #19
+Priority: 1
+Arrival time: 62
+Service time: 4.0
+Completion time: 87.0 
+Turnaround time:  25.0 
+Waiting time:  21.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #1
+Priority: 3
+Arrival time: 72
+Service time: 2.0
+Completion time: 82.0 
+Turnaround time:  10.0 
+Waiting time:  8.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #7
+Priority: 2
+Arrival time: 73
+Service time: 1.0
+Completion time: 85.0 
+Turnaround time:  12.0 
+Waiting time:  11.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #6
+Priority: 2
+Arrival time: 76
+Service time: 0.1
+Completion time: 90.1 
+Turnaround time:  14.1 
+Waiting time:  14.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #8
+Priority: 2
+Arrival time: 81
+Service time: 6.0
+Completion time: 97.0 
+Turnaround time:  16.0 
+Waiting time:  10.0 
+Response time:  0.0 
+---------------------------------------------------
+Job #0
+Priority: 1
+Arrival time: 92
+Service time: 10.0
+Completion time: 105.0 
+Turnaround time:  13.0 
+Waiting time:  3.0 
+Response time:  0.0 
+---------------------------------------------------
+===================================================
+Average waiting time:     23.82608695652174
+Average turnaround time:  28.234782608695657
+Average response time:    8.91304347826087
+Throughput:               0.21904761904761905
+===================================================
