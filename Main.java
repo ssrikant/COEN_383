@@ -56,6 +56,10 @@ public class Main{
 		double hpfwawait=0, hpfwaresponse=0, hpfwaturnaround=0;
                 double hpfpwawait=0, hpfpwaresponse=0, hpfpwaturnaround=0;
 
+		double fcfsthroughput=0, sjfthroughput =0, hpfthroughput =0, hpfpthroughput=0;
+		double rrthroughput =0, srtthroughput =0, hpfwathroughput=0, hpfpwathroughput=0;
+
+
 		showsettings();
 
 		for (int i=0; i<tests; i++){
@@ -70,77 +74,91 @@ public class Main{
 			fcfswait += fcfs.getavgwait();
 			fcfsresponse += fcfs.getavgresponse();
 			fcfsturnaround += fcfs.getavgturnaround();
+			fcfsthroughput += fcfs.getThroughput();
 
 			sjf = new SJFNP(jobs, verbose);
 			sjfwait += sjf.getavgwait();
 			sjfturnaround += sjf.getavgturnaround();
 			sjfresponse += sjf.getavgresponse();
+			sjfthroughput += sjf.getThroughput();
 
 			roundRobin = new RoundRobin(jobs, verbose);
 			rrwait += roundRobin.getavgwait();
 			rrturnaround += roundRobin.getavgturnaround();
 			rrresponse += roundRobin.getavgresponse();
+			rrthroughput += roundRobin.getThroughput();
 
 			hpf = new HPFNP(jobs, verbose);
 			hpfwait += hpf.getavgwait();
 			hpfresponse += hpf.getavgresponse();
 			hpfturnaround += hpf.getavgturnaround();
+			hpfthroughput += hpf.getThroughput();
 
 			hpfp = new HPFP(jobs, verbose);
 			hpfpwait += hpfp.getavgwait();
 			hpfpresponse += hpfp.getavgresponse();
 			hpfpturnaround += hpfp.getavgturnaround();
+			hpfpthroughput += hpfp.getThroughput();
 
 			srt = new SRT(jobs, verbose);
 			srtwait += srt.getavgwait();
 			srtturnaround += srt.getavgturnaround();
 			srtresponse += srt.getavgresponse();
+			srtthroughput += srt.getThroughput();
 
 			hpfwa = new HPFNPWithAging(jobs, verbose);
 			hpfwawait += hpfwa.getavgwait();
 			hpfwaresponse += hpfwa.getavgresponse();
 			hpfwaturnaround += hpfwa.getavgturnaround();
+			hpfwathroughput += hpfwa.getThroughput();
 
 			hpfpwa = new HPFPWithAging(jobs, verbose);
 			hpfpwawait += hpfpwa.getavgwait();
 			hpfpwaresponse += hpfpwa.getavgresponse();
 			hpfpwaturnaround += hpfpwa.getavgturnaround();
-
+			hpfpwathroughput += hpfpwa.getThroughput();
 		}
 
 		// Final result calculations
 		fcfswait=fcfswait/tests;
 		fcfsresponse=fcfsresponse/tests;
 		fcfsturnaround=fcfsturnaround/tests;
+		fcfsthroughput=fcfsthroughput/tests;
 
 		sjfwait=sjfwait/tests;
 		sjfresponse=sjfresponse/tests;
 		sjfturnaround=sjfturnaround/tests;
+		sjfthroughput=sjfthroughput/tests;
 
 		hpfwait=hpfwait/tests;
 		hpfresponse=hpfresponse/tests;
 		hpfturnaround=hpfturnaround/tests;
+		hpfthroughput=hpfthroughput/tests;
 
 		hpfpwait=hpfpwait/tests;
 		hpfpresponse=hpfpresponse/tests;
 		hpfpturnaround=hpfpturnaround/tests;
+		hpfpthroughput=hpfpthroughput/tests;
 
 		rrwait=rrwait/tests;
 		rrresponse=rrresponse/tests;
 		rrturnaround=rrturnaround/tests;
+		rrthroughput=rrthroughput/tests;
 
                 srtwait = srtwait/tests;
                 srtresponse = srtresponse/tests;
                 srtturnaround = srtturnaround/tests;
+		srtthroughput = srtthroughput/tests;
 
 		hpfwawait=hpfwawait/tests;
 		hpfwaresponse=hpfwaresponse/tests;
 		hpfwaturnaround=hpfwaturnaround/tests;
+		hpfwathroughput=hpfwathroughput/tests;
 
 		hpfpwawait=hpfpwawait/tests;
 		hpfpwaresponse=hpfpwaresponse/tests;
 		hpfpwaturnaround=hpfpwaturnaround/tests;
-
+		hpfpwathroughput=hpfpwathroughput/tests;
 
 
 
