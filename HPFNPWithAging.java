@@ -43,7 +43,13 @@ public class HPFNPWithAging {
 		throughput = 0;
 		queue = null;
 
-		run(jobs, verbose);
+		Job[] jobsCopy = new Job[jobs.length];
+		for (int i = 0; i < jobs.length; i++) {
+			jobsCopy[i] = jobs[i];
+		}
+
+		run(jobsCopy, verbose);
+		
 	}
 
 	private void run(Job[] jobs, boolean verbose) {
@@ -77,11 +83,11 @@ public class HPFNPWithAging {
 		double timeQuantum_p4 = 0.0;
 		
 		// keep track of the number of jobs processed between time quanta 0-99
-		int processedJobsCount = 0; 
-		int processedJobsCount_p1 = 0;
-		int processedJobsCount_p2 = 0;
-		int processedJobsCount_p3 = 0;
-		int processedJobsCount_p4 = 0;
+		double processedJobsCount = 0.0; 
+		double processedJobsCount_p1 = 0.0;
+		double processedJobsCount_p2 = 0.0;
+		double processedJobsCount_p3 = 0.0;
+		double processedJobsCount_p4 = 0.0;
 		
 		// compute metrics
 		int queueSize = queue.size();

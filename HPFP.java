@@ -1,14 +1,18 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 /**
- * Non-Preemptive Highest Priority First Scheduling Algorithm (Without Aging)
+ * Preemptive High Priority First Scheduling Algorithm (Without Aging)
  *
  */
-public class HPFNP {
+public class HPFP {
 
-	private Queue<Job> queue;
+	private List<Job> queue;
 	
 	private double avgwait;
 	private double avgturnaround;
@@ -34,9 +38,9 @@ public class HPFNP {
 	private double throughput_p2;
 	private double throughput_p3;
 	private double throughput_p4;
-	
-	public HPFNP(Job[] jobs, boolean verbose) {
 
+	public HPFP(Job[] jobs, boolean verbose) {
+		
 		avgwait = 0;
 		avgturnaround = 0;
 		avgresponse = 0;
@@ -49,12 +53,13 @@ public class HPFNP {
 		}
 
 		run(jobsCopy, verbose);
+        
 	}
 
 	private void run(Job[] jobs, boolean verbose) {
 
 		// sort and put in process queue
-		queue = new LinkedList<Job>(Arrays.asList(prioritySort(jobs)));
+		queue = new ArrayList<Job>(Arrays.asList(prioritySort(jobs)));
 
 		double totalWT = 0.0;
 		double totalTAT = 0.0;
@@ -88,76 +93,131 @@ public class HPFNP {
 		int processedJobsCount_p3 = 0;
 		int processedJobsCount_p4 = 0;
 		
+		Map<Integer, Boolean> preempted = new HashMap<Integer, Boolean>();
+		
 		// compute metrics
+		int i = 0;
 		int startingQueueSize = queue.size();
 		Job prevJob = null;
-		while (!queue.isEmpty()) {
+		while (!queue.isEmpty() && i < queue.size()) {
+			
+			Queue<Job> readyQueue = new LinkedList<Job>();
+			
+			Job currJob = queue.get(i);
 
 			// no process should get the CPU for the first time after time quantum 99
-			if (timeQuantum <= 99.0) {
+			if (timeQuantum <= 99.0 && !preempted.containsKey(currJob.getIndex())) {
 				
-				Job currJob = queue.peek();
-	
-				// if first job to be processed or there is some idle time
-				if (startingQueueSize == queue.size() || (currJob.getArrival() > prevJob.getCompletionTime())) {
-					currJob.setCompletionTime(currJob.getArrival() + currJob.getService());
-					currJob.setWaitingTime(0.0);
-					currJob.setResponseTime(0.0);
+				// time it will take for current job to finish
+				double timeForCurrJob = 0.0;
+				if (startingQueueSize == queue.size()) {
+					timeForCurrJob = currJob.getArrival() + currJob.getService();
 				} else {
-					currJob.setCompletionTime(prevJob.getCompletionTime() + currJob.getService());
-					currJob.setWaitingTime(prevJob.getCompletionTime() - currJob.getArrival());
-					currJob.setResponseTime(prevJob.getCompletionTime() - currJob.getArrival());
+					timeForCurrJob = prevJob.getCompletionTime() + currJob.getService();
 				}
-	
-				currJob.setTurnaroundTime(currJob.getWaitingTime() + currJob.getService());
-	
-				totalWT += currJob.getWaitingTime();
-				totalTAT += currJob.getTurnaroundTime();
-				totalRT += currJob.getResponseTime();
-	
-				// on last iteration/processed job, this will be the time it took to finish all the jobs between time quanta 0-99
-				timeQuantum = currJob.getCompletionTime();
-				processedJobsCount++;
-				prevJob = currJob;
 				
-				// compute metrics for each priority
-				if (currJob.getPriority() == 1) {
-					totalWT_p1 += currJob.getWaitingTime();
-					totalTAT_p1 += currJob.getTurnaroundTime();
-					totalRT_p1 += currJob.getResponseTime();
-					processedJobsCount_p1++;
-					timeQuantum_p1 = currJob.getCompletionTime();
-				} else if (currJob.getPriority() == 2) {
-					totalWT_p2 += currJob.getWaitingTime();
-					totalTAT_p2 += currJob.getTurnaroundTime();
-					totalRT_p2 += currJob.getResponseTime();
-					processedJobsCount_p2++;
-					timeQuantum_p2 = currJob.getCompletionTime();
-				} else if (currJob.getPriority() == 3) {
-					totalWT_p3 += currJob.getWaitingTime();
-					totalTAT_p3 += currJob.getTurnaroundTime();
-					totalRT_p3 += currJob.getResponseTime();
-					processedJobsCount_p3++;
-					timeQuantum_p3 = currJob.getCompletionTime();
-				} else {
-					totalWT_p4 += currJob.getWaitingTime();
-					totalTAT_p4 += currJob.getTurnaroundTime();
-					totalRT_p4 += currJob.getResponseTime();	
-					processedJobsCount_p4++;
-					timeQuantum_p4 = currJob.getCompletionTime();
-				}
+				// check if other jobs with higher priority come in before the current job finishes
+				boolean isPreempted = false;
+				int j = i + 1;
+				double remainingTimeForCurrJob = 0.0;
+				while (j < queue.size() && (queue.get(j).getArrival() <= timeForCurrJob) && (queue.get(j).getPriority() < currJob.getPriority())) {
+					
+					Job temp = queue.get(j);
+					queue.remove(j);
+					
+					remainingTimeForCurrJob = timeForCurrJob - temp.getArrival();
+					currJob.setRemainingServiceTime(remainingTimeForCurrJob);
+					queue.add(j, currJob);
+					preempted.put(currJob.getIndex(), true);
+					currJob = temp;
+					
+					readyQueue.add(temp);
+					isPreempted = true;
+					j += 1;
 	
-				if (verbose) {
-					currJob.printJob();
+				}
+				
+				// if job will not be preempted, finish processing it
+				if (!isPreempted) {
+					readyQueue.add(currJob);
+				}
+				
+				while (!readyQueue.isEmpty()) {
+					
+					currJob = readyQueue.peek();
+					
+					double st = 0.0;
+					// this job was preempted
+					if (currJob.getRemainingServiceTime() > 0) {
+						st = currJob.getRemainingServiceTime();
+					} else { // current job is being processed for the first time
+						st = currJob.getService();
+					}
+					
+					if (i == 0 || (currJob.getArrival() > prevJob.getCompletionTime())) {
+						currJob.setCompletionTime(currJob.getArrival() + st);
+						currJob.setWaitingTime(0.0);
+						currJob.setResponseTime(0.0);
+					} else {
+						currJob.setCompletionTime(prevJob.getCompletionTime() + st);
+						currJob.setWaitingTime(prevJob.getCompletionTime() - currJob.getArrival());
+						currJob.setResponseTime(prevJob.getCompletionTime() - currJob.getArrival());
+					}
+		
+					currJob.setTurnaroundTime(currJob.getWaitingTime() + currJob.getService());
+		
+					totalWT += currJob.getWaitingTime();
+					totalTAT += currJob.getTurnaroundTime();
+					totalRT += currJob.getResponseTime();
+		
+					// on last iteration/processed job, this will be the time it took to finish all the jobs between time quanta 0-99
+					timeQuantum = currJob.getCompletionTime();
+					processedJobsCount++;
+					prevJob = currJob;
+					readyQueue.remove();
+					
+					// compute metrics for each priority
+					if (currJob.getPriority() == 1) {
+						totalWT_p1 += currJob.getWaitingTime();
+						totalTAT_p1 += currJob.getTurnaroundTime();
+						totalRT_p1 += currJob.getResponseTime();
+						processedJobsCount_p1++;
+						timeQuantum_p1 = currJob.getCompletionTime();
+					} else if (currJob.getPriority() == 2) {
+						totalWT_p2 += currJob.getWaitingTime();
+						totalTAT_p2 += currJob.getTurnaroundTime();
+						totalRT_p2 += currJob.getResponseTime();
+						processedJobsCount_p2++;
+						timeQuantum_p2 = currJob.getCompletionTime();
+					} else if (currJob.getPriority() == 3) {
+						totalWT_p3 += currJob.getWaitingTime();
+						totalTAT_p3 += currJob.getTurnaroundTime();
+						totalRT_p3 += currJob.getResponseTime();
+						processedJobsCount_p3++;
+						timeQuantum_p3 = currJob.getCompletionTime();
+					} else {
+						totalWT_p4 += currJob.getWaitingTime();
+						totalTAT_p4 += currJob.getTurnaroundTime();
+						totalRT_p4 += currJob.getResponseTime();	
+						processedJobsCount_p4++;
+						timeQuantum_p4 = currJob.getCompletionTime();
+					}
+					
+		
+					if (verbose) {
+						currJob.printJob();
+					}
 				}
 				
 			} else {
 				if (verbose) {
-					System.out.println("Job #" + queue.peek().getIndex() + " was not processed because it got CPU for the first time after time quantum 99.");
+					System.out.println("Job #" + queue.get(i).getIndex() + " was not processed because it got CPU for the first time after time quantum 99.");
 				}
 			}
 
-			queue.remove();
+			queue.remove(i);
+			i++;
+			
 
 		}
 
@@ -190,7 +250,7 @@ public class HPFNP {
 		throughput_p4 = processedJobsCount_p4 / timeQuantum_p4;
 
 		System.out.println("===================================================");
-		System.out.println("HPF Non-Preemptive");
+		System.out.println("HPF Preemptive");
 		System.out.println("===================================================");
 		System.out.println("---------------------------------------------------");
 		System.out.println("Priority 1");
@@ -241,7 +301,7 @@ public class HPFNP {
 	public double getavgturnaround(){
 		return avgturnaround;
 	}
-	
+
 	public double getThroughput() {
 		return throughput;
 	}
@@ -271,7 +331,6 @@ public class HPFNP {
 					jobs[i] = jobs[k];
 					jobs[k] = tempJob;
 				}			
-				// apply fcfs if equal priority
 				if (jobs[k].getPriority() == jobs[i].getPriority() && jobs[k].getArrival() < jobs[i].getArrival()) {
 					tempJob = jobs[i];
 					jobs[i] = jobs[k];

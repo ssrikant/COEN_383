@@ -22,8 +22,13 @@ public class SJFNP {
 		avgturnaround = 0;
 		throughput = 0;
 		queue = null;
+		
+		Job[] jobsCopy = new Job[jobs.length];
+		for (int i = 0; i < jobs.length; i++) {
+			jobsCopy[i] = jobs[i];
+		}
 
-		run(jobs, verbose);
+		run(jobsCopy, verbose);
 	}
 
 	private void run(Job[] jobs, boolean verbose) {
