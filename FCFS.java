@@ -17,6 +17,11 @@ public class FCFS {
 
 	public FCFS(Job[] jobs, boolean verbose){
 
+		for(int ii=0; ii<jobs.length; ii++){
+			if(jobs[ii].getService() < 1)
+				jobs[ii].modService();
+		}
+
 		avgwait = 0;
 		avgturnaround = 0;
 		avgresponse = 0;
@@ -38,6 +43,8 @@ public class FCFS {
 
 		int startingQueueSize = queue.size();
 		Job prevJob = null;
+
+		int prevtime = 0;
 
 		while (!queue.isEmpty()) {
 			// no process should get the CPU for the first time after time quantum 99
@@ -61,13 +68,24 @@ public class FCFS {
 				totalRT += currJob.getResponseTime();
 
 				// on last iteration/processed job, this will be the time it took to finish all the jobs between time quanta 0-99
+				prevtime = (int)timeQuantum;
 				timeQuantum = currJob.getCompletionTime();
+				if(currJob.getArrival() > prevtime){
+					int diff = currJob.getArrival() - prevtime;
+					for(int x = 0; x<diff; x++){
+						System.out.println("Quant: "+x+"\t|\t IDLE");
+					}
+					prevtime += diff;
+				}
+				for(int x = prevtime; x<timeQuantum; x++){
+					System.out.println("Quant: "+x+"\t|\t #"+currJob.getIndex());
+				}
 				processedJobsCount++;
 				prevJob = currJob;
 
-				if (verbose) {
-					currJob.printJob();
-				}
+				//if (verbose) {
+				//	currJob.printJob();
+				//}
 				
 			} else {
 				if (verbose) {
