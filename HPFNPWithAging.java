@@ -9,32 +9,32 @@ import java.util.Queue;
 public class HPFNPWithAging {
 
 	private Queue<Job> queue;
-	
+
 	private double avgwait;
 	private double avgturnaround;
 	private double avgresponse;
 	private double throughput;
-	
+
 	private double avgwait_p1;
 	private double avgwait_p2;
 	private double avgwait_p3;
 	private double avgwait_p4;
-	
+
 	private double avgturnaround_p1;
 	private double avgturnaround_p2;
 	private double avgturnaround_p3;
 	private double avgturnaround_p4;
-	
+
 	private double avgresponse_p1;
 	private double avgresponse_p2;
 	private double avgresponse_p3;
 	private double avgresponse_p4;
-	
+
 	private double throughput_p1;
 	private double throughput_p2;
 	private double throughput_p3;
 	private double throughput_p4;
-	
+
 	public HPFNPWithAging(Job[] jobs, boolean verbose) {
 
 		avgwait = 0;
@@ -46,10 +46,10 @@ public class HPFNPWithAging {
 		Job[] jobsCopy = new Job[jobs.length];
 		for (int i = 0; i < jobs.length; i++) {
 			jobsCopy[i] = jobs[i];
+			jobsCopy[i].modService();
 		}
-
+		System.out.println("=====================================\n HPF(NP-with aging) Starting\n ==============================================");
 		run(jobsCopy, verbose);
-		
 	}
 
 	private void run(Job[] jobs, boolean verbose) {
@@ -60,7 +60,7 @@ public class HPFNPWithAging {
 		double totalWT = 0.0;
 		double totalTAT = 0.0;
 		double totalRT = 0.0;
-		
+
 		double totalWT_p1 = 0.0;
 		double totalWT_p2 = 0.0;
 		double totalWT_p3 = 0.0;
@@ -83,7 +83,7 @@ public class HPFNPWithAging {
 		double timeQuantum_p4 = 0.0;
 		
 		// keep track of the number of jobs processed between time quanta 0-99
-		double processedJobsCount = 0.0; 
+		double processedJobsCount = 0.0;
 		double processedJobsCount_p1 = 0.0;
 		double processedJobsCount_p2 = 0.0;
 		double processedJobsCount_p3 = 0.0;
@@ -117,7 +117,21 @@ public class HPFNPWithAging {
 				totalRT += currJob.getResponseTime();
 	
 				// on last iteration/processed job, this will be the time it took to finish all the jobs between time quanta 0-99
+				int prevtime = (int)timeQuantum;
 				timeQuantum = currJob.getCompletionTime();
+
+                                if(currJob.getArrival() > prevtime){
+                                        double diff = currJob.getArrival() - prevtime;
+                                        for(int x = 0; x<diff; x++){
+                                                System.out.println("DQuant: "+(prevtime +x)+"\t|\t IDLE");
+                                        }
+                                        prevtime += diff;
+                                }
+                                for(int x = prevtime; x<timeQuantum; x++){
+                                        System.out.println("PQuant: "+x+"\t|\t #"+currJob.getIndex());
+                                }
+//				prevtime = (int)timeQuantum;
+
 				processedJobsCount++;
 				prevJob = currJob;
 				
@@ -148,9 +162,9 @@ public class HPFNPWithAging {
 					timeQuantum_p4 = currJob.getCompletionTime();
 				}
 	
-				if (verbose) {
-					currJob.printJob();
-				}
+//				if (verbose) {
+//					currJob.printJob();
+//				}
 				
 			} else {
 				if (verbose) {

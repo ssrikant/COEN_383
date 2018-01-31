@@ -276,7 +276,7 @@ public class HPFPWithAging {
 		throughput_p4 = processedJobsCount_p4 / timeQuantum_p4;
 
 		System.out.println("===================================================");
-		System.out.println("HPF Preemptive");
+		System.out.println("HPF Preemptive With aging");
 		System.out.println("===================================================");
 		System.out.println("---------------------------------------------------");
 		System.out.println("Priority 1");

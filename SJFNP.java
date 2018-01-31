@@ -77,7 +77,7 @@ public class SJFNP {
                                 if(currJob.getArrival() > prevtime){
                                         int diff = currJob.getArrival() - prevtime;
                                         for(int x = 0; x<diff; x++){
-                                                System.out.println("Quant: "+x+"\t|\t IDLE");
+                                                System.out.println("Quant: "+(prevtime+x)+"\t|\t IDLE");
                                         }
                                         prevtime += diff;
                                 }

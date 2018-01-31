@@ -57,7 +57,7 @@ public class HPFP {
 	}
 
 	private void run(Job[] jobs, boolean verbose) {
-
+		System.out.println("-------------------------------------------------------------------------------------------------------------------");
 		// sort and put in process queue
 		queue = new ArrayList<Job>(Arrays.asList(prioritySort(jobs)));
 
@@ -99,15 +99,17 @@ public class HPFP {
 		int i = 0;
 		int startingQueueSize = queue.size();
 		Job prevJob = null;
+		System.out.println("Jobs: " + queue.size());
 		while (!queue.isEmpty() && i < queue.size()) {
-			
+
 			Queue<Job> readyQueue = new LinkedList<Job>();
-			
 			Job currJob = queue.get(i);
+
+			System.out.println(preempted);
 
 			// no process should get the CPU for the first time after time quantum 99
 			if (timeQuantum <= 99.0 && !preempted.containsKey(currJob.getIndex())) {
-				
+
 				// time it will take for current job to finish
 				double timeForCurrJob = 0.0;
 				if (startingQueueSize == queue.size()) {
@@ -115,37 +117,37 @@ public class HPFP {
 				} else {
 					timeForCurrJob = prevJob.getCompletionTime() + currJob.getService();
 				}
-				
+
 				// check if other jobs with higher priority come in before the current job finishes
 				boolean isPreempted = false;
 				int j = i + 1;
 				double remainingTimeForCurrJob = 0.0;
 				while (j < queue.size() && (queue.get(j).getArrival() <= timeForCurrJob) && (queue.get(j).getPriority() < currJob.getPriority())) {
-					
+
 					Job temp = queue.get(j);
 					queue.remove(j);
-					
+
 					remainingTimeForCurrJob = timeForCurrJob - temp.getArrival();
 					currJob.setRemainingServiceTime(remainingTimeForCurrJob);
 					queue.add(j, currJob);
 					preempted.put(currJob.getIndex(), true);
 					currJob = temp;
-					
+
 					readyQueue.add(temp);
 					isPreempted = true;
 					j += 1;
-	
+
 				}
-				
+
 				// if job will not be preempted, finish processing it
 				if (!isPreempted) {
 					readyQueue.add(currJob);
 				}
-				
+
 				while (!readyQueue.isEmpty()) {
-					
+
 					currJob = readyQueue.peek();
-					
+
 					double st = 0.0;
 					// this job was preempted
 					if (currJob.getRemainingServiceTime() > 0) {
@@ -153,7 +155,7 @@ public class HPFP {
 					} else { // current job is being processed for the first time
 						st = currJob.getService();
 					}
-					
+
 					if (i == 0 || (currJob.getArrival() > prevJob.getCompletionTime())) {
 						currJob.setCompletionTime(currJob.getArrival() + st);
 						currJob.setWaitingTime(0.0);

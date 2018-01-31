@@ -46,8 +46,9 @@ public class HPFNP {
 		Job[] jobsCopy = new Job[jobs.length];
 		for (int i = 0; i < jobs.length; i++) {
 			jobsCopy[i] = jobs[i];
+			jobsCopy[i].modService();
 		}
-
+		System.out.println("===============================================\n Starting HPF(NP)\n========================================");
 		run(jobsCopy, verbose);
 	}
 
@@ -74,20 +75,20 @@ public class HPFNP {
 		double totalRT_p2 = 0.0;
 		double totalRT_p3 = 0.0;
 		double totalRT_p4 = 0.0;
-		
+
 		double timeQuantum = 0.0;
 		double timeQuantum_p1 = 0.0;
 		double timeQuantum_p2 = 0.0;
 		double timeQuantum_p3 = 0.0;
 		double timeQuantum_p4 = 0.0;
-		
+
 		// keep track of the number of jobs processed between time quanta 0-99
-		int processedJobsCount = 0; 
+		int processedJobsCount = 0;
 		int processedJobsCount_p1 = 0;
 		int processedJobsCount_p2 = 0;
 		int processedJobsCount_p3 = 0;
 		int processedJobsCount_p4 = 0;
-		
+
 		// compute metrics
 		int startingQueueSize = queue.size();
 		Job prevJob = null;
@@ -95,9 +96,9 @@ public class HPFNP {
 
 			// no process should get the CPU for the first time after time quantum 99
 			if (timeQuantum <= 99.0) {
-				
+
 				Job currJob = queue.peek();
-	
+
 				// if first job to be processed or there is some idle time
 				if (startingQueueSize == queue.size() || (currJob.getArrival() > prevJob.getCompletionTime())) {
 					currJob.setCompletionTime(currJob.getArrival() + currJob.getService());
@@ -116,7 +117,20 @@ public class HPFNP {
 				totalRT += currJob.getResponseTime();
 	
 				// on last iteration/processed job, this will be the time it took to finish all the jobs between time quanta 0-99
+				int prevtime = (int)timeQuantum;
 				timeQuantum = currJob.getCompletionTime();
+
+				if(currJob.getArrival() > prevtime){
+                                        int diff = currJob.getArrival() - prevtime;
+                                        for(int x = 0; x<diff; x++){
+                                                System.out.println("Quant: "+(prevtime+x)+"\t|\t IDLE");
+                                        }
+                                        prevtime += diff;
+                                }
+                                for(int x = prevtime; x<timeQuantum; x++){
+                                        System.out.println("Quant: "+x+"\t|\t #"+currJob.getIndex());
+                                }
+
 				processedJobsCount++;
 				prevJob = currJob;
 				
@@ -142,15 +156,15 @@ public class HPFNP {
 				} else {
 					totalWT_p4 += currJob.getWaitingTime();
 					totalTAT_p4 += currJob.getTurnaroundTime();
-					totalRT_p4 += currJob.getResponseTime();	
+					totalRT_p4 += currJob.getResponseTime();
 					processedJobsCount_p4++;
 					timeQuantum_p4 = currJob.getCompletionTime();
 				}
-	
-				if (verbose) {
-					currJob.printJob();
-				}
-				
+
+//				if (verbose) {
+//					currJob.printJob();
+//				}
+
 			} else {
 				if (verbose) {
 					System.out.println("Job #" + queue.peek().getIndex() + " was not processed because it got CPU for the first time after time quantum 99.");
