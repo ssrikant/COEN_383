@@ -25,7 +25,7 @@
 
 public class Main{
 
-	public static boolean verbose = false;
+	public static boolean verbose = true;
 	public static int tests = 1;
                 // setting Generation verbose parameter to true will show all print statements - feel free to do so if curious.
                 // tests refers to how many times we will generate jobs and run each scheduling algorithm.
