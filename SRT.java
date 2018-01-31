@@ -18,7 +18,7 @@ public class SRT {
 		avgresponse = 0;
 		throughput = 0;
 		servicedJobs = 0;
-		System.out.println("Starting...");
+		System.out.println("============================================\nStarting SRT:\n");
 		run(jobs, verbose);
 	}
 
@@ -53,7 +53,8 @@ public class SRT {
 		int time;
 		for(time = 0; time<100; time++){
 			//adds new arrived jobs and sorts instantly on arrival
-			if(jobindex < alljobs.length  && alljobs[jobindex].getArrival() == time ){
+			if(jobindex < alljobs.length  && alljobs[jobindex].getArrival() <= time ){
+				System.out.println("Job #" + alljobs[jobindex].getIndex() +" Arrived.");
 				curjobs = srtsort(addjob(curjobs, alljobs[jobindex]), work);
 				jobindex++;
 			}
@@ -66,7 +67,11 @@ public class SRT {
 					servicedJobs++;
 					avgresponse += time;
 				}
+
 				work[curjobs[0].getIndex()]++;
+
+				System.out.println("Quant: " + time + "\t|\t#" + curjobs[0].getIndex());
+
 				if(work[curjobs[0].getIndex()] >= curjobs[0].getService()){
 					alljobs[findJob(alljobs, curjobs[0].getIndex())].setCompletionTime(time);
 					completiontimes += time;
@@ -75,6 +80,7 @@ public class SRT {
 				}
 			}else{
 				IDLE++;
+				System.out.println("Quant: "+time+"\t|\t IDLE#"+IDLE);
 			}
 		}
 		// finish up pre-started jobs
@@ -82,11 +88,15 @@ public class SRT {
 			int curwork = work[curjobs[0].getIndex()];
 			if(curwork > 0){
 				double remainingTime = curwork - curjobs[0].getService();
+				for(int j=0; j<remainingTime; j++){
+					System.out.println("Quant: "+time+"\t|\t#"+curjobs[0].getIndex());
+					time++;
+				}
 				work[curjobs[0].getIndex()] += remainingTime;	// service
-				time += remainingTime;
 				completiontimes += time;
 				curjobs = jobpop(curjobs);
 			}else{
+				System.out.println("Never serviced Job #" + curjobs[0].getIndex());
 				curjobs = jobpop(curjobs);	// Never serviced
 			}
 		}
@@ -95,8 +105,6 @@ public class SRT {
 		System.out.println(avgresponse);
 		System.out.println(avgturnaround);
 		System.out.println(throughput);
-
-
 
 		//finish statistics calculations
 		avgwait = (completiontimes - avgresponse)/servicedJobs;	// completion times - response times over the number of jobs
