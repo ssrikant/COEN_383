@@ -46,6 +46,7 @@ public class RoundRobin {
             //Iterate through jobs
             for(int i=0; i < jobs.length; i++){
 
+
                 // Check if arrival time of this job is greater than the current time
                 if(jobs[i].getArrival() > time){
 
@@ -57,7 +58,7 @@ public class RoundRobin {
                         time += quantum;
                     }
 
-                } else {
+                } else if (time <= 99.0){  //No process should get the CPU for the first time after time quantum 99
                     //Add the job to the read queue
                     readyQueue.add(jobs[i]);
                 }
