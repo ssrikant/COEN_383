@@ -38,6 +38,8 @@ public class Main{
 		HPFNP hpf;
 		HPFP hpfp;
 		RoundRobin roundRobin;
+		SRT srt;
+
 		HPFNPWithAging hpfwa;
 		HPFPWithAging hpfpwa;
 
@@ -50,7 +52,8 @@ public class Main{
                 double hpfwait=0, hpfresponse=0, hpfturnaround=0;
                 double hpfpwait=0, hpfpresponse=0, hpfpturnaround=0;
                 double rrwait=0, rrresponse=0, rrturnaround=0;
-                double hpfwawait=0, hpfwaresponse=0, hpfwaturnaround=0;
+                double srtwait=0, srtresponse=0, srtturnaround=0;
+		double hpfwawait=0, hpfwaresponse=0, hpfwaturnaround=0;
                 double hpfpwawait=0, hpfpwaresponse=0, hpfpwaturnaround=0;
 
 		showsettings();
@@ -72,21 +75,26 @@ public class Main{
 			sjfwait += sjf.getavgwait();
 			sjfturnaround += sjf.getavgturnaround();
 			sjfresponse += sjf.getavgresponse();
-			
+
 			roundRobin = new RoundRobin(jobs, verbose);
 			rrwait += roundRobin.getavgwait();
 			rrturnaround += roundRobin.getavgturnaround();
 			rrresponse += roundRobin.getavgresponse();
-			
+
 			hpf = new HPFNP(jobs, verbose);
 			hpfwait += hpf.getavgwait();
 			hpfresponse += hpf.getavgresponse();
 			hpfturnaround += hpf.getavgturnaround();
-			
+
 			hpfp = new HPFP(jobs, verbose);
 			hpfpwait += hpfp.getavgwait();
 			hpfpresponse += hpfp.getavgresponse();
 			hpfpturnaround += hpfp.getavgturnaround();
+
+			srt = new SRT(jobs, verbose);
+			srtwait += srt.getavgwait();
+			srtturnaround += srt.getavgturnaround();
+			srtresponse += srt.getavgresponse();
 
 			hpfwa = new HPFNPWithAging(jobs, verbose);
 			hpfwawait += hpfwa.getavgwait();
@@ -112,19 +120,23 @@ public class Main{
 		hpfwait=hpfwait/tests;
 		hpfresponse=hpfresponse/tests;
 		hpfturnaround=hpfturnaround/tests;
-		
+
 		hpfpwait=hpfpwait/tests;
 		hpfpresponse=hpfpresponse/tests;
 		hpfpturnaround=hpfpturnaround/tests;
-		
+
 		rrwait=rrwait/tests;
 		rrresponse=rrresponse/tests;
 		rrturnaround=rrturnaround/tests;
 
+                srtwait = srtwait/tests;
+                srtresponse = srtresponse/tests;
+                srtturnaround = srtturnaround/tests;
+
 		hpfwawait=hpfwawait/tests;
 		hpfwaresponse=hpfwaresponse/tests;
 		hpfwaturnaround=hpfwaturnaround/tests;
-		
+
 		hpfpwawait=hpfpwawait/tests;
 		hpfpwaresponse=hpfpwaresponse/tests;
 		hpfpwaturnaround=hpfpwaturnaround/tests;
@@ -141,6 +153,8 @@ public class Main{
 		System.out.println("HPF NP - wait/response/turnaround: " + hpfwait +" / "+ hpfresponse +" / "+ hpfturnaround);
 		System.out.println("HPF P - wait/response/turnaround:  " + hpfpwait +" / "+ hpfpresponse +" / "+ hpfpturnaround);
 		System.out.println("RR - wait/response/turnaround:     " + rrwait +" / "+ rrresponse +" / "+ rrturnaround);
+		System.out.println("SRT wait/response/turnaround:\t" + srtwait + " / " + srtresponse + " / " + srtturnaround);
+
 		System.out.println("********************** EXTRA **********************");
 		System.out.println("HPF NP With Aging");
 		System.out.println("- wait/response/turnaround:\t" + hpfwawait +" / "+ hpfwaresponse +" / "+ hpfwaturnaround);
