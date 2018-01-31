@@ -106,6 +106,7 @@ public class SRT {
 				curjobs = jobpop(curjobs);	// Never serviced
 			}
 		}
+		System.out.println("Serviced Jobs: " + servicedJobs);
 
 //		System.out.println(avgwait);
 //		System.out.println(avgresponse);
@@ -116,7 +117,8 @@ public class SRT {
 		avgwait = (completiontimes - avgresponse)/servicedJobs;	// completion times - response times over the number of jobs
 		avgresponse = avgresponse / servicedJobs;	// avgresponse isnt avg until here
 		avgturnaround = avgturnaround / servicedJobs;
-		throughput = servicedJobs/time;
+		throughput = (double) servicedJobs/time;
+
 		System.out.println("================================END OF SRT======================================");
 	}
 
