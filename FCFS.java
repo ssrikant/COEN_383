@@ -27,7 +27,8 @@ public class FCFS {
 		avgresponse = 0;
 		throughput = 0;
 		queue = new LinkedList<Job>(Arrays.asList(jobs));
-
+		
+		System.out.println("======================================\nFCFS STARTING\n=======================================");
 		run(queue, verbose);
 		
 	}
@@ -106,7 +107,7 @@ public class FCFS {
 		throughput = processedJobsCount / timeQuantum;
 
 		System.out.println("===================================================");
-		System.out.println("FCFS");
+		System.out.println("FCFS RESULTS");
 		System.out.println("===================================================");
 		System.out.println("Average waiting time:     " + avgwait);
 		System.out.println("Average turnaround time:  " + avgturnaround);

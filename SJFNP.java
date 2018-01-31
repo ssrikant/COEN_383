@@ -22,12 +22,14 @@ public class SJFNP {
 		avgturnaround = 0;
 		throughput = 0;
 		queue = null;
-		
+
 		Job[] jobsCopy = new Job[jobs.length];
 		for (int i = 0; i < jobs.length; i++) {
 			jobsCopy[i] = jobs[i];
+                        if(jobs[i].getService() < 1)
+                                jobsCopy[i].modService();
 		}
-
+		System.out.println("===============================================\n Starting SJF(NP)\n========================================");
 		run(jobsCopy, verbose);
 	}
 
@@ -70,13 +72,25 @@ public class SJFNP {
 				totalRT += currJob.getResponseTime();
 
 				// on last iteration/processed job, this will be the time it took to finish all the jobs between time quanta 0-99
+				int prevtime = (int)timeQuantum;
 				timeQuantum = currJob.getCompletionTime();
+                                if(currJob.getArrival() > prevtime){
+                                        int diff = currJob.getArrival() - prevtime;
+                                        for(int x = 0; x<diff; x++){
+                                                System.out.println("Quant: "+x+"\t|\t IDLE");
+                                        }
+                                        prevtime += diff;
+                                }
+                                for(int x = prevtime; x<timeQuantum; x++){
+                                        System.out.println("Quant: "+x+"\t|\t #"+currJob.getIndex());
+                                }
+
 				processedJobsCount++;
 				prevJob = currJob;
 
-				if (verbose) {
-					currJob.printJob();
-				}
+//				if (verbose) {
+//					currJob.printJob();
+//				}
 
 			} else {
 				if (verbose) {

@@ -30,6 +30,12 @@ public class Job{
 		idleTime = 0;
 	}
 
+	public void modService(){
+		if(service_time == 0.1){
+			service_time = 1;
+		}
+	}
+
 	public int getArrival(){
 		return arrival_time;
 	}

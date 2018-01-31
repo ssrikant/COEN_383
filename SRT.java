@@ -1,7 +1,3 @@
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
-
 
 public class SRT {
 
@@ -48,7 +44,7 @@ public class SRT {
 
 		// initialize the work done on each job to 0
 		for (int i=0;i<work.length; i++){
-			alljobs[i].printJob();
+			//alljobs[i].printJob();
 			work[i] = 0;
 		}
 
