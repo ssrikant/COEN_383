@@ -9,10 +9,12 @@ public class RoundRobin {
     private double totalWaitingTime;
     private double totalTurnAroundTime;
     private double totalResponseTime;
+    private int processedJobsCount;
 
     private double avgwait;
     private double avgturnaround;
     private double avgresponse;
+    private double throughput;
 
     public RoundRobin(Job[] jobs, boolean verbose){
         time = 0;
@@ -20,11 +22,13 @@ public class RoundRobin {
         readyQueue = new ArrayList<Job>();
         totalWaitingTime = 0.0;
         totalTurnAroundTime = 0.0;
-	totalResponseTime = 0.0;
+	    totalResponseTime = 0.0;
+        processedJobsCount = 0;
 
         avgwait = 0;
         avgresponse = 0;
         avgturnaround = 0;
+        throughput = 0;
         run(jobs, verbose);
     }
 
@@ -89,6 +93,7 @@ public class RoundRobin {
                             readyQueue.get(j).setRemainingServiceTime(0.0);
                             readyQueue.get(j).setTurnaroundTime(readyQueue.get(j).getCompletionTime() - readyQueue.get(j).getArrival());
                             readyQueue.get(j).setWaitingTime(readyQueue.get(j).getTurnaroundTime() - readyQueue.get(j).getService());
+                            processedJobsCount++;
 
                             totalWaitingTime += readyQueue.get(j).getWaitingTime();
                             totalTurnAroundTime += readyQueue.get(j).getTurnaroundTime();
@@ -116,10 +121,13 @@ public class RoundRobin {
         avgwait = totalWaitingTime/jobs.length;
         avgturnaround = totalTurnAroundTime/jobs.length;
         avgresponse = totalResponseTime/jobs.length;
+        throughput = (double)processedJobsCount/(double)time;
 
         System.out.println("Average waiting time:     " + avgwait);
         System.out.println("Average turnaround time:  " + avgturnaround);
         System.out.println("Average response time:    " + avgresponse);
+        System.out.println("Throughput:               " + throughput);
+
     }
 
     public double getavgwait(){
@@ -133,5 +141,14 @@ public class RoundRobin {
     public double getavgresponse(){
         return avgresponse;
     }
+
+    public double getThroughput() {
+        return throughput;
+    }
+
+    public void setThroughput(double throughput) {
+        this.throughput = throughput;
+    }
+
 
 }
