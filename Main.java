@@ -166,18 +166,18 @@ public class Main{
 		System.out.println("===================================================");
 		System.out.println("****************** FINAL RESULTS ******************");
 		System.out.println("===================================================");
-		System.out.println("FCFS - wait/response/turnaround:   " + fcfswait +" / "+ fcfsresponse +" / "+ fcfsturnaround);
-		System.out.println("SJF - wait/response/turnaround:    " + sjfwait +" / "+ sjfresponse +" / "+ sjfturnaround);
-		System.out.println("HPF NP - wait/response/turnaround: " + hpfwait +" / "+ hpfresponse +" / "+ hpfturnaround);
-		System.out.println("HPF P - wait/response/turnaround:  " + hpfpwait +" / "+ hpfpresponse +" / "+ hpfpturnaround);
-		System.out.println("RR - wait/response/turnaround:     " + rrwait +" / "+ rrresponse +" / "+ rrturnaround);
-		System.out.println("SRT wait/response/turnaround:\t" + srtwait + " / " + srtresponse + " / " + srtturnaround);
+		System.out.println("FCFS - wait/response/turnaround/throughput:   " + fcfswait +" / "+ fcfsresponse +" / "+ fcfsturnaround + " / " + fcfsthroughput);
+		System.out.println("SJF - wait/response/turnaround/throughput:    " + sjfwait +" / "+ sjfresponse +" / "+ sjfturnaround + " / " + sjfthroughput);
+		System.out.println("HPF NP - wait/response/turnaround/throughput: " + hpfwait +" / "+ hpfresponse +" / "+ hpfturnaround + " / " + hpfthroughput);
+		System.out.println("HPF P - wait/response/turnaround/throughput:  " + hpfpwait +" / "+ hpfpresponse +" / "+ hpfpturnaround + " / " + hpfpthroughput);
+		System.out.println("RR - wait/response/turnaround/throughput:     " + rrwait +" / "+ rrresponse +" / "+ rrturnaround + " / " + rrthroughput);
+		System.out.println("SRT wait/response/turnaround/throughput:      " + srtwait + " / " + srtresponse + " / " + srtturnaround + " / " + srtthroughput);
 
 		System.out.println("********************** EXTRA **********************");
 		System.out.println("HPF NP With Aging");
-		System.out.println("- wait/response/turnaround:\t" + hpfwawait +" / "+ hpfwaresponse +" / "+ hpfwaturnaround);
+		System.out.println("- wait/response/turnaround/throughput:\t" + hpfwawait +" / "+ hpfwaresponse +" / "+ hpfwaturnaround + " / " + hpfwathroughput);
 		System.out.println("HPF P With Aging");
-		System.out.println("- wait/response/turnaround:\t" + hpfpwawait +" / "+ hpfpwaresponse +" / "+ hpfpwaturnaround);
+		System.out.println("- wait/response/turnaround/throughput:\t" + hpfpwawait +" / "+ hpfpwaresponse +" / "+ hpfpwaturnaround + " / " + hpfpwathroughput);
 
 //		System.out.println(" wait/response/turnaround:\t" + wait +"/"+ response +"/"+ turnaround);
 
